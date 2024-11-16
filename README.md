@@ -6,19 +6,13 @@ This Repository contains the starcode Python course worked out during WiSe 24/25
 
 ### Folder and File Descriptions
 
-- **`lib/classes/`**:
-  - Includes core classes and the basic game class hierarchy.
-  - Designed to serve as the foundation for game logic and structure.
-  
-- **`msc/`**:
-  - Contains auxiliary files or scripts that support the main functionality.
+- **`lib/`**: Contains all Python modules for the game logic.
+  - **`controller/`**: Control layer (controller classes).
+  - **`factory/`**: Factory classes for object instantiation.
+  - **`model/`**: Data models and game types.
+  - **`view/`**: GUI elements and display logic.
+- **`msc/`**: Additional files, such as word lists for the 'Hangman' game.
+- **`course.ipynb`**: Jupyter Notebook for interactive coding and exercises.
+- **`README.md`**: This file.
 
-- **`.editorconfig`**:
-  - Ensures consistent coding standards across different text editors and IDEs.
-
-- **`.gitignore`**:
-  - Defines files and folders to exclude from version control.
-
-- **`README.md`**:
-  - This file.
 

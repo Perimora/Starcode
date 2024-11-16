@@ -13,6 +13,7 @@ This Repository contains the starcode Python course worked out during WiSe 24/25
   - **`view/`**: GUI elements and display logic.
 - **`msc/`**: Additional files, such as word lists for the 'Hangman' game.
 - **`course.ipynb`**: Jupyter Notebook for interactive coding and exercises.
+- **`requirements.txt`**: Pip dependencies of the project.
 - **`README.md`**: This file.
 
 

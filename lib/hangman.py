@@ -1,13 +1,21 @@
-"""
-TODO:
-    - target input (eigener input + word list für spiel)
-"""
+import random
+
+WORD_LIST_FILE = "msc/words.txt"
 
 
-def hangman():
-    word = "word".upper()
-    letters_guessed = 0
-    guesses = []
+def hangman(vs_cpu: bool):
+    """
+    Game logic for game 'Hangman'.
+    :param vs_cpu: Boolean value to indicate if the word is chosen by the computer.
+    """
+    if vs_cpu:
+        with open(WORD_LIST_FILE, 'r') as f:
+            lines = f.readlines()
+            word = random.choice(lines).strip()
+    else:
+        word = "word".upper()
+
+    guesses = set()
     finished = False
     lives = 5
 
@@ -27,35 +35,30 @@ def hangman():
 
         guess = input().upper()
 
-        if len(guess) or not guess.isalpha():
-            print("Please guess only one letter!")
+        if len(guess) != 1 or not guess.isalpha():
+            print("Please guess only one alphabetical letter!")
             continue
 
         if guess in word:
 
-            guesses.append(guess)
+            guesses.add(guess)
 
             print(f"Great! You guessed correctly.")
 
-            count = 0
+            letters_left = len(word) - len(set.intersection(set(word), guesses))
 
-            for letter in word:
-                if letter in guesses:
-                    count += 1
-
-                else:
-                    continue
-
-            if count == len(word):
-                finished = True
+            if letters_left:
+                print(f"{letters_left} letters left until you have won!")
+            else:
                 won = True
+                finished = True
 
         else:
+            lives -= 1
             print("Wrong guess, you lost a live!")
             print(f"You have {lives} lives remaining.")
-
-            lives -= 1
             if lives == 0:
+                print("Oh no, you lost the game!")
                 finished = True
 
     if won:

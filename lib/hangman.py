@@ -1,71 +1,102 @@
 import random
 
-WORD_LIST_FILE = "msc/words.txt"
+
+# gekapselte Funktionen
+def verringere_um_Eins(zahl):   # grundlegende Funktion 
+    zahl = zahl - 1
+
+    return zahl
+
+def kündige_Spieleröffnung_an():    # Nutzung bereits gegebener Funktionen wie input
+    print("Willkommen beim Hangman-Spiel")
+    name = input("Bitte gib deinen Namen ein: ")
+    print("Hallo " + name + "! Schön dich kennenzulernen.")
+    print("-------------------------------------------------")
+    print("Let's Play Hangman! Du kannst dir 6 Fehlversuche leisten.")
 
 
-def hangman(vs_cpu: bool):
-    """
-    Game logic for game 'Hangman'.
-    :param vs_cpu: Boolean value to indicate if the word is chosen by the computer.
-    """
-    if vs_cpu:
-        with open(WORD_LIST_FILE, 'r') as f:
-            lines = f.readlines()
-            word = random.choice(lines).strip()
-    else:
-        word = "word".upper()
+def ist_das_Spiel_noch_am_laufen(erratenesTeilwort, erlaubteVerfehlsuche):  # if else Funktion
+    if (not ("_" in erratenesTeilwort)) :
+        print("GAME OVER - YOU WON")
+        return False
 
-    guesses = set()
-    finished = False
-    lives = 5
+    if (erlaubteVerfehlsuche == 0) :
+        print("GAME OVER - YOU LOST")
+        return False
 
-    won = False
+    return True
 
-    print("Welcome to Hangman!")
-    print("Please Enter your name:")
+def erhalte_Großbuchstaben():   # While Funktion
+    eingabebuchstabe = input("Gib einen Großbuchstaben ein: ")
+    while (not (len(eingabebuchstabe) == 1 and eingabebuchstabe.isalpha() and eingabebuchstabe.isupper())) :
+        print("Das war kein Großbuchstabe: ")
+        eingabebuchstabe = input("Gib einen Großbuchstaben ein: ")
 
-    name = input()
+    return eingabebuchstabe
 
-    print(f"Hello, {name}! Nice to meet you!")
-    print("Let's play...")
+def erweitere_fehlgeschlagene_BuchstabenListe(eingabebuchstabe, fehlgeschlageneBuchstaben): # Listen Funktion 1
+    fehlgeschlageneBuchstaben.append(eingabebuchstabe)
 
-    while not finished:
 
-        print("Enter a guess please: ")
+def gib_verschleiertes_Wort(geheimwort):    # Listen Funktion 2
+    verschleiertesWort = []
+    for buchstabe in geheimwort :
+        verschleiertesWort.append("_")
+        verschleiertesWort.append(" ")
 
-        guess = input().upper()
+    return verschleiertesWort
 
-        if len(guess) != 1 or not guess.isalpha():
-            print("Please guess only one alphabetical letter!")
+def zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, anzahlDerFehlversuche): # Listen Funktion 3
+    print("Das bisher erratene Teilwort ist: " + ''.join(erratenesTeilwort))
+    print("Die fehlgeschlagenen Buchstaben sind: " + str(fehlgeschlageneBuchstaben))
+    print("Du hast noch " + str(anzahlDerFehlversuche) + " Fehlversuche übrig.")
+    print("-------------------------------------------------")
+
+
+def wähle_ein_zufälliges_Wort(wörterliste): # Listen Funktion 4
+    wort = random.choice(wörterliste)
+
+    return wort
+
+def entschleiere_Buchstaben(eingabebuchstabe, geheimwort, erratenesTeilwort):   # Listen Funktion 5 [! recht fortgeschritten (Knobelaufgabe, sonst gegeben?)]
+    for buchstabenposition, buchstabe in enumerate(geheimwort) : 
+        if (eingabebuchstabe == buchstabe) :
+            erratenesTeilwort[buchstabenposition * 2] = eingabebuchstabe
+
+# Eigentliches Spiel 
+def starte_Hangmanspiel(wörterListe):
+    kündige_Spieleröffnung_an() 
+
+    geheimwort = wähle_ein_zufälliges_Wort(wörterListe)
+    fehlgeschlageneBuchstaben = []
+    erratenesTeilwort = gib_verschleiertes_Wort(geheimwort)
+    erlaubteVerfehlsuche = 6
+
+    zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteVerfehlsuche)
+
+    while(ist_das_Spiel_noch_am_laufen(erratenesTeilwort, erlaubteVerfehlsuche)) :
+        eingabebuchstabe = erhalte_Großbuchstaben()
+
+        if (eingabebuchstabe in erratenesTeilwort) :
+            print("Der Buchstabe ist bereits erraten. Versuche einen anderen Buchstaben.")
             continue
 
-        if guess in word:
+        if(eingabebuchstabe in geheimwort) :
+            print("> Glückwunsch, der Buchstabe ist im Wort enthalten")
+            entschleiere_Buchstaben(eingabebuchstabe, geheimwort, erratenesTeilwort)
+        
+        if(eingabebuchstabe in fehlgeschlageneBuchstaben) :
+            print("Der Buchstabe ist bereits fehlgeschlagenen. Versuche einen anderen Buchstaben.")
+            continue
 
-            guesses.add(guess)
+        if(not (eingabebuchstabe in geheimwort)) :
+            print("> Leider ist der Buchstabe nicht im Wort enthalten. Du hast nun einen Fehlversuch weniger.")
+            erlaubteVerfehlsuche = verringere_um_Eins(erlaubteVerfehlsuche)
+            erweitere_fehlgeschlagene_BuchstabenListe(eingabebuchstabe, fehlgeschlageneBuchstaben)
+        
 
-            print(f"Great! You guessed correctly.")
-
-            letters_left = len(word) - len(set.intersection(set(word), guesses))
-
-            if letters_left:
-                print(f"{letters_left} letters left until you have won!")
-            else:
-                won = True
-                finished = True
-
-        else:
-            lives -= 1
-            print("Wrong guess, you lost a live!")
-            print(f"You have {lives} lives remaining.")
-            if lives == 0:
-                print("Oh no, you lost the game!")
-                finished = True
-
-    if won:
-        print("You won!")
-    else:
-        print("You lost!")
-
+        zeige_Zustand(erratenesTeilwort,fehlgeschlageneBuchstaben,erlaubteVerfehlsuche)
+    
 
 if __name__ == "__main__":
-    hangman()
+    starte_Hangmanspiel(["HALLO"])

@@ -1,5 +1,7 @@
 import random
 
+# TODO: Wie unterer Kommentar beim Kapseln der Built-In Funktion.
+#       Weiß nicht, ob es hier sinnvoll ist zu kapseln, wenn das eigentlich eine 1 Zeilen Operation ist...
 
 # gekapselte Funktionen
 def verringere_um_Eins(zahl):   # grundlegende Funktion 
@@ -34,6 +36,8 @@ def erhalte_Großbuchstaben():   # While Funktion
 
     return eingabebuchstabe
 
+# TODO: Hier ne eigene Funktion zu machen bietet iwie keinen Mehrwert.
+#       Ich denke, dass verwirrt eher und bläht den Code auf.
 def erweitere_fehlgeschlagene_BuchstabenListe(eingabebuchstabe, fehlgeschlageneBuchstaben): # Listen Funktion 1
     fehlgeschlageneBuchstaben.append(eingabebuchstabe)
 
@@ -42,10 +46,12 @@ def gib_verschleiertes_Wort(geheimwort):    # Listen Funktion 2
     verschleiertesWort = []
     for buchstabe in geheimwort :
         verschleiertesWort.append("_")
+        # TODO: Wieso hier Spacing?
         verschleiertesWort.append(" ")
 
     return verschleiertesWort
 
+# TODO: Die Funktion ist cool! Ich würde die als API für die GUI nutzen und die dann ggf. nochmal refactoren...
 def zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, anzahlDerFehlversuche): # Listen Funktion 3
     print("Das bisher erratene Teilwort ist: " + ''.join(erratenesTeilwort))
     print("Die fehlgeschlagenen Buchstaben sind: " + str(fehlgeschlageneBuchstaben))
@@ -74,6 +80,8 @@ def starte_Hangmanspiel(wörterListe):
 
     zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteFehlversuche)
 
+    # TODO: Vielleicht würde hier ein einfacher Boolean Abgleich leichter zu verstehen sein.
+    #       Weiß nicht, ob das für den Anfang zu verkappselt ist.
     while(ist_das_Spiel_noch_am_laufen(erratenesTeilwort, erlaubteFehlversuche)) :
         eingabebuchstabe = erhalte_Großbuchstaben()
 

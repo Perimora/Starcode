@@ -15,12 +15,12 @@ def kündige_Spieleröffnung_an():    # Nutzung bereits gegebener Funktionen wie
     print("Let's Play Hangman! Du kannst dir 6 Fehlversuche leisten.")
 
 
-def ist_das_Spiel_noch_am_laufen(erratenesTeilwort, erlaubteVerfehlsuche):  # if else Funktion
+def ist_das_Spiel_noch_am_laufen(erratenesTeilwort, erlaubteFehlversuche):  # if else Funktion
     if (not ("_" in erratenesTeilwort)) :
         print("GAME OVER - YOU WON")
         return False
 
-    if (erlaubteVerfehlsuche == 0) :
+    if (erlaubteFehlversuche == 0) :
         print("GAME OVER - YOU LOST")
         return False
 
@@ -70,11 +70,11 @@ def starte_Hangmanspiel(wörterListe):
     geheimwort = wähle_ein_zufälliges_Wort(wörterListe)
     fehlgeschlageneBuchstaben = []
     erratenesTeilwort = gib_verschleiertes_Wort(geheimwort)
-    erlaubteVerfehlsuche = 6
+    erlaubteFehlversuche = 6
 
-    zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteVerfehlsuche)
+    zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteFehlversuche)
 
-    while(ist_das_Spiel_noch_am_laufen(erratenesTeilwort, erlaubteVerfehlsuche)) :
+    while(ist_das_Spiel_noch_am_laufen(erratenesTeilwort, erlaubteFehlversuche)) :
         eingabebuchstabe = erhalte_Großbuchstaben()
 
         if (eingabebuchstabe in erratenesTeilwort) :
@@ -91,11 +91,11 @@ def starte_Hangmanspiel(wörterListe):
 
         if(not (eingabebuchstabe in geheimwort)) :
             print("> Leider ist der Buchstabe nicht im Wort enthalten. Du hast nun einen Fehlversuch weniger.")
-            erlaubteVerfehlsuche = verringere_um_Eins(erlaubteVerfehlsuche)
+            erlaubteFehlversuche = verringere_um_Eins(erlaubteFehlversuche)
             erweitere_fehlgeschlagene_BuchstabenListe(eingabebuchstabe, fehlgeschlageneBuchstaben)
         
 
-        zeige_Zustand(erratenesTeilwort,fehlgeschlageneBuchstaben,erlaubteVerfehlsuche)
+        zeige_Zustand(erratenesTeilwort,fehlgeschlageneBuchstaben,erlaubteFehlversuche)
     
 
 if __name__ == "__main__":

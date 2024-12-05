@@ -81,7 +81,7 @@ def starte_Hangmanspiel(wörterListe):
     zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteFehlversuche)
 
     # TODO: Vielleicht würde hier ein einfacher Boolean Abgleich leichter zu verstehen sein.
-    #       Weiß nicht, ob das für den Anfang zu verkappselt ist.
+    #       Weiß nicht, ob das für den Anfang zu verkapselt ist.
     while(ist_das_Spiel_noch_am_laufen(erratenesTeilwort, erlaubteFehlversuche)) :
         eingabebuchstabe = erhalte_Großbuchstaben()
 

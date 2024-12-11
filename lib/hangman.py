@@ -41,8 +41,9 @@ def erhalte_Großbuchstaben():   # While Funktion
 def erweitere_fehlgeschlagene_BuchstabenListe(eingabebuchstabe, fehlgeschlageneBuchstaben): # Listen Funktion 1
     fehlgeschlageneBuchstaben.append(eingabebuchstabe)
 
-
-def gib_verschleiertes_Wort(geheimwort):    # Listen Funktion 2
+# Spacing entfernen?
+# Liste-Konzept vor for-Konzept
+def gib_verschleiertes_Wort(geheimwort):    # For Funktion 
     verschleiertesWort = []
     for buchstabe in geheimwort :
         verschleiertesWort.append("_")
@@ -58,13 +59,16 @@ def zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, anzahlDerFehlver
     print("Du hast noch " + str(anzahlDerFehlversuche) + " Fehlversuche übrig.")
     print("-------------------------------------------------")
 
-
+# im Spielcode vorgeben
 def wähle_ein_zufälliges_Wort(wörterliste): # Listen Funktion 4
     wort = random.choice(wörterliste)
 
     return wort
 
-def entschleiere_Buchstaben(eingabebuchstabe, geheimwort, erratenesTeilwort):   # Listen Funktion 5 [! recht fortgeschritten (Knobelaufgabe, sonst gegeben?)]
+# for i in range ?
+# Buchstabenposition * 2 -> Buchstaben ?
+# -> einfache Funktion
+def entschleiere_Buchstaben(eingabebuchstabe, geheimwort, erratenesTeilwort):   # For
     for buchstabenposition, buchstabe in enumerate(geheimwort) : 
         if (eingabebuchstabe == buchstabe) :
             erratenesTeilwort[buchstabenposition * 2] = eingabebuchstabe

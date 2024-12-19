@@ -43,23 +43,25 @@ class HangmanGui:
         self.covered_letters = set(letters)
 
     def display(self):
-        # reset plot
+        # Reset plot
         self.ax.cla()
-
         self.ax.axis('off')
         self.ax.set_xlim(-2, 2)
         self.ax.set_ylim(-2, 5)
-        self.ax.axis('off')
         self.ax.set_aspect('equal')
-        # show masked target
+
+        # Display masked word
         self.display_masked_word()
 
-        # draw hangman figure for given error count
+        # Draw hangman figure for given error count
         for i in range(self.player_error_count):
             self.error_steps[i]()
 
         clear_output(wait=True)
         display(self.fig)
+
+        # Close the figure to avoid duplicate rendering
+        plt.close(self.fig)
 
     def cycle(self, masked_target: List, player_error_count: int, letters: List[str]):
         self.update(masked_target, player_error_count, letters)

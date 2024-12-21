@@ -1,6 +1,8 @@
 /.venv
 /.idea
 
+/.jupyter
+
 __pycache__/
 *.pyc
 *.pyo

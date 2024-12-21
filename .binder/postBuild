@@ -1,5 +1,1 @@
-pip install jupyterthemes
-
-jt -t monokai
-
 python lib/scripts/setup_env.py

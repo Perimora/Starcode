@@ -1,4 +1,7 @@
 import random
+from time import sleep
+
+from lib.hangman_gui import HangmanGui
 
 
 # TODO: Wie unterer Kommentar beim Kapseln der Built-In Funktion.
@@ -15,7 +18,7 @@ def kündige_Spieleröffnung_an():
     name = input("Bitte gib deinen Namen ein: ")
     print("Hallo " + name + "! Schön dich kennenzulernen.")
     print("-------------------------------------------------")
-    print("Let's Play Hangman! Du kannst dir 6 Fehlversuche leisten.")
+    print("Let's Play Hangman! Du kannst dir 10 Fehlversuche leisten.")
 
 
 def ist_das_Spiel_noch_am_laufen(erratenesTeilwort, erlaubteFehlversuche):  # if else Funktion
@@ -67,8 +70,9 @@ def zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, anzahlDerFehlver
 # im Spielcode vorgeben
 def wähle_ein_zufälliges_Wort(wörterliste):  # Listen Funktion 4
     wort = random.choice(wörterliste)
-
-    return wort
+    # TODO: for unified representation i changed that here.
+    #   I'm considering to force upper case for user inputs as well to un-bloat the code for the students...
+    return wort.upper()
 
 
 # for i in range ?
@@ -82,14 +86,18 @@ def entschleiere_Buchstaben(eingabebuchstabe, geheimwort, erratenesTeilwort):  #
 
 # Eigentliches Spiel
 def starte_Hangmanspiel(wörterListe):
-    kündige_Spieleröffnung_an()
 
+    kündige_Spieleröffnung_an()
     geheimwort = wähle_ein_zufälliges_Wort(wörterListe)
     fehlgeschlageneBuchstaben = []
     erratenesTeilwort = gib_verschleiertes_Wort(geheimwort)
-    erlaubteFehlversuche = 6
+    erlaubteFehlversuche = 10
 
-    zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteFehlversuche)
+    sleep(0.5)
+
+    gui = HangmanGui(geheimwort, erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteFehlversuche)
+
+    #zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteFehlversuche)
 
     # TODO: Vielleicht würde hier ein einfacher Boolean Abgleich leichter zu verstehen sein.
     #       Weiß nicht, ob das für den Anfang zu verkapselt ist.
@@ -97,24 +105,30 @@ def starte_Hangmanspiel(wörterListe):
         eingabebuchstabe = erhalte_Großbuchstaben()
 
         if (eingabebuchstabe in erratenesTeilwort):
-            print("Der Buchstabe ist bereits erraten. Versuche einen anderen Buchstaben.")
+            #print("Der Buchstabe ist bereits erraten. Versuche einen anderen Buchstaben.")
+            gui.cycle(erratenesTeilwort, erlaubteFehlversuche, fehlgeschlageneBuchstaben, message="Der Buchstabe ist bereits erraten. Versuche einen anderen Buchstaben.")
             continue
 
         if (eingabebuchstabe in geheimwort):
-            print("> Glückwunsch, der Buchstabe ist im Wort enthalten")
+            #print("> Glückwunsch, der Buchstabe ist im Wort enthalten")
             entschleiere_Buchstaben(eingabebuchstabe, geheimwort, erratenesTeilwort)
+            gui.cycle(erratenesTeilwort, erlaubteFehlversuche, fehlgeschlageneBuchstaben, message="Glückwunsch, der Buchstabe ist im Wort enthalten!")
+            continue
 
         if (eingabebuchstabe in fehlgeschlageneBuchstaben):
-            print("Der Buchstabe ist bereits fehlgeschlagenen. Versuche einen anderen Buchstaben.")
+            #print("Der Buchstabe ist bereits fehlgeschlagenen. Versuche einen anderen Buchstaben.")
+            gui.cycle(erratenesTeilwort, erlaubteFehlversuche, fehlgeschlageneBuchstaben, message="Der Buchstabe ist bereits fehlgeschlagenen. Versuche einen anderen Buchstaben!")
             continue
 
         if (not (eingabebuchstabe in geheimwort)):
-            print("> Leider ist der Buchstabe nicht im Wort enthalten. Du hast nun einen Fehlversuch weniger.")
+            #print("> Leider ist der Buchstabe nicht im Wort enthalten. Du hast nun einen Fehlversuch weniger.")
             erlaubteFehlversuche = verringere_um_Eins(erlaubteFehlversuche)
             erweitere_fehlgeschlagene_BuchstabenListe(eingabebuchstabe, fehlgeschlageneBuchstaben)
+            gui.cycle(erratenesTeilwort, erlaubteFehlversuche, fehlgeschlageneBuchstaben, message="Leider ist der Buchstabe nicht im Wort enthalten. Du hast nun einen Fehlversuch weniger.")
+            continue
 
-        zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteFehlversuche)
-
+        #zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteFehlversuche)
+        gui.cycle(erratenesTeilwort, erlaubteFehlversuche, fehlgeschlageneBuchstaben)
 
 if __name__ == "__main__":
     starte_Hangmanspiel(["HALLO"])

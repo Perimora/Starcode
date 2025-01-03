@@ -1,5 +1,7 @@
 # starcode Course WiSe 24/25
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Perimora/Starcode/main?labpath=main.ipynb)
+
 This Repository contains the starcode Python course worked out during WiSe 24/25 in collaboration with TU Berlin.
 
 ## Structure

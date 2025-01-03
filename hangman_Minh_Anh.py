@@ -105,30 +105,21 @@ def starte_Hangmanspiel(wörterListe):
         eingabebuchstabe = erhalte_Großbuchstaben()
 
         if (eingabebuchstabe in erratenesTeilwort):
-            #print("Der Buchstabe ist bereits erraten. Versuche einen anderen Buchstaben.")
-            gui.cycle(erratenesTeilwort, erlaubteFehlversuche, fehlgeschlageneBuchstaben, message="Der Buchstabe ist bereits erraten. Versuche einen anderen Buchstaben.")
-            continue
+            nachricht ="Der Buchstabe ist bereits erraten.\nVersuche einen anderen Buchstaben."
 
         if (eingabebuchstabe in geheimwort):
-            #print("> Glückwunsch, der Buchstabe ist im Wort enthalten")
+            nachricht = "Glückwunsch, der Buchstabe ist im Wort enthalten"
             entschleiere_Buchstaben(eingabebuchstabe, geheimwort, erratenesTeilwort)
-            gui.cycle(erratenesTeilwort, erlaubteFehlversuche, fehlgeschlageneBuchstaben, message="Glückwunsch, der Buchstabe ist im Wort enthalten!")
-            continue
 
         if (eingabebuchstabe in fehlgeschlageneBuchstaben):
-            #print("Der Buchstabe ist bereits fehlgeschlagenen. Versuche einen anderen Buchstaben.")
-            gui.cycle(erratenesTeilwort, erlaubteFehlversuche, fehlgeschlageneBuchstaben, message="Der Buchstabe ist bereits fehlgeschlagenen. Versuche einen anderen Buchstaben!")
-            continue
+            nachricht="Der Buchstabe ist bereits fehlgeschlagenen.\nVersuche einen anderen Buchstaben!"
 
         if (not (eingabebuchstabe in geheimwort)):
-            #print("> Leider ist der Buchstabe nicht im Wort enthalten. Du hast nun einen Fehlversuch weniger.")
             erlaubteFehlversuche = verringere_um_Eins(erlaubteFehlversuche)
             erweitere_fehlgeschlagene_BuchstabenListe(eingabebuchstabe, fehlgeschlageneBuchstaben)
-            gui.cycle(erratenesTeilwort, erlaubteFehlversuche, fehlgeschlageneBuchstaben, message="Leider ist der Buchstabe nicht im Wort enthalten. Du hast nun einen Fehlversuch weniger.")
-            continue
+            nachricht="Leider ist der Buchstabe nicht im Wort enthalten.\nDu hast nun einen Fehlversuch weniger."
 
-        #zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteFehlversuche)
-        gui.cycle(erratenesTeilwort, erlaubteFehlversuche, fehlgeschlageneBuchstaben)
+        gui.cycle(erratenesTeilwort, erlaubteFehlversuche, fehlgeschlageneBuchstaben, message=nachricht)
 
 if __name__ == "__main__":
     starte_Hangmanspiel(["HALLO"])

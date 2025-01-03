@@ -3,19 +3,27 @@ from typing import List
 from IPython.core.display_functions import display, clear_output
 from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
-from matplotlib.patches import Circle
+from matplotlib.patches import Circle, Rectangle
 
 
 class HangmanGui:
 
-    def __init__(self, masked_target: List, player_error_count: int = 0):
-        # initial member creation
+    def __init__(self, target: List, masked_target: List, failed_chars: List = None, player_lives: int = 10):
+        # Initial member creation
         self.fig, self.ax = plt.subplots()
+        self.target = target
         self.masked_target = masked_target
-        self.player_error_count = player_error_count
-        self.covered_letters = {}
+        self.player_error_count = 10 - player_lives
 
-        # define mapping for error counts and drawing functions
+        if failed_chars:
+            self.covered_letters = set(failed_chars)
+        else:
+            self.covered_letters = set()
+
+        # Notification box text
+        self.notification_message = "Welcome to Hangman!"
+
+        # Define mapping for error counts and drawing functions
         self.error_steps = [
             self.draw_base,
             self.draw_pillar,
@@ -29,24 +37,26 @@ class HangmanGui:
             self.draw_right_leg
         ]
 
-        # plot initial game state
-        self.ax.set_xlim(-2, 2)
+        # Plot initial game state
+        self.ax.set_xlim(-2, 6)  # Extend the x-axis to accommodate the notification box
         self.ax.set_ylim(-2, 5)
         self.ax.axis('off')
         self.ax.set_aspect('equal')
 
         self.display()
 
-    def update(self, masked_target: List, player_error_count: int, letters: List[str]):
+    def update(self, masked_target: List, player_error_count: int, failed_chars: List[str], message: str = None):
         self.masked_target = masked_target
         self.player_error_count = player_error_count
-        self.covered_letters = set(letters)
+        self.covered_letters = set(failed_chars)
+        if message is not None:
+            self.notification_message = message
 
     def display(self):
         # Reset plot
         self.ax.cla()
         self.ax.axis('off')
-        self.ax.set_xlim(-2, 2)
+        self.ax.set_xlim(-2, 6)  # Extend the x-axis to accommodate the notification box
         self.ax.set_ylim(-2, 5)
         self.ax.set_aspect('equal')
 
@@ -57,14 +67,17 @@ class HangmanGui:
         for i in range(self.player_error_count):
             self.error_steps[i]()
 
+        # Display notification box
+        self.display_notification_box()
+
         clear_output(wait=True)
         display(self.fig)
 
         # Close the figure to avoid duplicate rendering
         plt.close(self.fig)
 
-    def cycle(self, masked_target: List, player_error_count: int, letters: List[str]):
-        self.update(masked_target, player_error_count, letters)
+    def cycle(self, masked_target: List, player_lives: int, failed_chars: List[str], message: str = None):
+        self.update(masked_target, 10 - player_lives, failed_chars, message)
         self.display()
 
     def display_masked_word(self):
@@ -72,6 +85,9 @@ class HangmanGui:
         self.ax.text(2.5, 2.5, masked_word, fontsize=20, ha='left', va='center')
         guessed_letters = ", ".join(sorted(self.covered_letters))
         self.ax.text(2.5, 1.75, f"Guessed letters: {guessed_letters}", fontsize=12, ha='left', va='center')
+
+    def display_notification_box(self):
+        self.ax.text(10, 2.0, self.notification_message, fontsize=20, ha='left', va='center')
 
     def draw_base(self):
         self.ax.add_line(Line2D([-1, 1], [-2, -2], linewidth=3, color='black'))

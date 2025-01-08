@@ -78,7 +78,7 @@ def buchstaben_aufdecken(eingabebuchstabe, geheimwort, erratenes_teilwort):  # F
 # Eigentliches Spiel
 def starte_hangmanspiel(wörter_liste):
 
-    kündige_spieleröffnung_an()
+    #kündige_spieleröffnung_an()
     geheimwort = wähle_ein_zufälliges_wort(wörter_liste)
     fehlgeschlageneBuchstaben = []
     erratenesTeilwort = gib_verdecktes_wort(geheimwort)

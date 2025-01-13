@@ -1,4 +1,3 @@
-from time import sleep
 from typing import List
 
 from IPython.core.display_functions import display, clear_output
@@ -59,7 +58,9 @@ class HangmanGui:
         display(self.fig)
         plt.close(self.fig)
         name = input("Enter your name: ")
+        self.clear_render()
         self.update_notification_box(f"Welcome, {name}!\nLet's play hangman!")
+        self.cycle(self.masked_target)
 
     def display(self):
         # Reset plot

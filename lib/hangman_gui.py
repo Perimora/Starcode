@@ -8,17 +8,18 @@ from matplotlib.patches import Circle, Rectangle
 
 class HangmanGui:
 
-    def __init__(self, target: List, masked_target: List, failed_chars: List = None, player_lives: int = 10):
+    def __init__(self, target: List, masked_target: List, player_lives: int = 10):
         # Initial member creation
+        # plot for gui render
         self.fig, self.ax = plt.subplots()
+        # target representation
         self.target = target
         self.masked_target = masked_target
+        # set player lives and error count
+        self.player_lives = player_lives
         self.player_error_count = 10 - player_lives
-
-        if failed_chars:
-            self.covered_letters = set(failed_chars)
-        else:
-            self.covered_letters = set()
+        self.covered_letters = []
+        self.failed_letters = []
 
         # Notification box text
         self.notification_message = "Welcome to Hangman!\nPlease enter your name below this cell..."
@@ -60,7 +61,7 @@ class HangmanGui:
         name = input("Enter your name: ")
         self.clear_render()
         self.update_notification_box(f"Welcome, {name}!\nLet's play hangman!")
-        self.cycle(self.masked_target)
+        self.cycle(self.masked_target, self.player_lives, self.failed_letters)
 
     def display(self):
         # Reset plot
@@ -85,7 +86,7 @@ class HangmanGui:
         masked_word = " ".join(self.masked_target)
         self.ax.text(2.5, 2.5, masked_word, fontsize=20, ha='left', va='center')
         guessed_letters = ", ".join(sorted(self.covered_letters))
-        self.ax.text(2.5, 1.75, f"Guessed letters: {guessed_letters}", fontsize=12, ha='left', va='center')
+        self.ax.text(2.5, 1.75, f"Fehlgeschlagene Buchstaben: {guessed_letters}", fontsize=12, ha='left', va='center')
 
     def display_notification_box(self):
         self.ax.text(10, 2.0, self.notification_message, fontsize=20, ha='left', va='center')
@@ -114,22 +115,25 @@ class HangmanGui:
         self.ax.add_line(Line2D([0, 1], [4, 4], linewidth=3, color='black'))
 
     def draw_rope(self):
-        self.ax.add_line(Line2D([1, 1], [4, 3.5], linewidth=3, color='black'))
+        self.ax.add_line(Line2D([1, 1], [4, 3.2], linewidth=3, color='black'))
 
+    # Resized figure components
     def draw_head(self):
-        self.ax.add_patch(Circle((1, 3.2), 0.3, fill=False, color='black', linewidth=3))
+        self.ax.add_patch(
+            Circle((1, 2.8), 0.4, fill=False, color='black', linewidth=3))
 
     def draw_body(self):
-        self.ax.add_line(Line2D([1, 1], [2.9, 2], linewidth=3, color='black'))
+        self.ax.add_line(Line2D([1, 1], [2.4, 1], linewidth=3, color='black'))
 
     def draw_left_arm(self):
-        self.ax.add_line(Line2D([1, 0.5], [2.8, 2.5], linewidth=3, color='black'))
+        self.ax.add_line(Line2D([1, 0.3], [2.3, 1.8], linewidth=3, color='black'))
 
     def draw_right_arm(self):
-        self.ax.add_line(Line2D([1, 1.5], [2.8, 2.5], linewidth=3, color='black'))
+        self.ax.add_line(Line2D([1, 1.7], [2.3, 1.8], linewidth=3, color='black'))
 
     def draw_left_leg(self):
-        self.ax.add_line(Line2D([1, 0.7], [2, 1.5], linewidth=3, color='black'))
+        self.ax.add_line(Line2D([1, 0.5], [1, 0.2], linewidth=3, color='black'))
 
     def draw_right_leg(self):
-        self.ax.add_line(Line2D([1, 1.3], [2, 1.5], linewidth=3, color='black'))
+        self.ax.add_line(Line2D([1, 1.5], [1, 0.2], linewidth=3, color='black'))
+

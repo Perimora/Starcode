@@ -80,13 +80,13 @@ def starte_hangmanspiel(wörter_liste):
 
     #kündige_spieleröffnung_an()
     geheimwort = wähle_ein_zufälliges_wort(wörter_liste)
-    fehlgeschlageneBuchstaben = []
     erratenesTeilwort = gib_verdecktes_wort(geheimwort)
+    fehlgeschlageneBuchstaben = []
     erlaubteFehlversuche = 10
 
     sleep(0.5)
 
-    gui = HangmanGui(geheimwort, erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteFehlversuche)
+    gui = HangmanGui(geheimwort, erratenesTeilwort, erlaubteFehlversuche)
 
     #zeige_Zustand(erratenesTeilwort, fehlgeschlageneBuchstaben, erlaubteFehlversuche)
 
@@ -108,7 +108,7 @@ def starte_hangmanspiel(wörter_liste):
         if (not (eingabebuchstabe in geheimwort)):
             erlaubteFehlversuche = verringere_um_eins(erlaubteFehlversuche)
             erweitere_fehlgeschlagene_BuchstabenListe(eingabebuchstabe, fehlgeschlageneBuchstaben)
-            nachricht="Leider ist der Buchstabe nicht im Wort enthalten.\nDu hast nun einen Fehlversuch weniger."
+            nachricht="Leider ist der Buchstabe nicht im Wort enthalten.\nDu hast nun ein Leben weniger!"
 
         gui.cycle(erratenesTeilwort, erlaubteFehlversuche, fehlgeschlageneBuchstaben, message=nachricht)
 

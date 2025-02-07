@@ -19,7 +19,7 @@ In diesem Kurs vermitteln wir die Grundlagen der Programmierung:
 - Funktionen
 - Kontrollstrukturen
 
-Diese Konzepte setzen wir direkt praktisch um, indem wir gemeinsam das Spiel **Hangman** in Python implementieren. 🎯
+Diese Konzepte setzen wir direkt praktisch um, indem wir gemeinsam das Spiel **Hangman** in Python implementieren. 
 
 
 

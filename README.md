@@ -32,3 +32,22 @@ Klicke auf den folgenden Button, um das Notebook direkt in Binder zu starten:
     <img src="https://mybinder.org/badge_logo.svg" alt="Binder starten">
   </a>
 </p>
+
+---
+
+## Lösungen
+
+🔍 **Hinweis:** Die hier verlinkten Lösungen sollen als Orientierungshilfe dienen. Bitte versucht zunächst, die Aufgaben selbstständig zu lösen. 
+
+📌 **Interaktive Lösungsvorschau**  
+Klicke auf den folgenden Button, um eine Binder-Instanz mit den Lösungen zu starten:
+
+<p align="center">
+  <a href="https://mybinder.org/v2/gh/perimora/starcode/solution?labpath=main.ipynb" target="_blank">
+    <img src="https://mybinder.org/badge_logo.svg" alt="Binder starten">
+  </a>
+</p>
+
+⚠️ **Bitte verantwortungsvoll nutzen!**  
+Die Lösungen sind nicht als Copy-Paste-Vorlage gedacht. Nutzt sie zur Überprüfung eures Verständnisses oder wenn ihr trotz eigener Ansätze nicht weiterkommt.
+

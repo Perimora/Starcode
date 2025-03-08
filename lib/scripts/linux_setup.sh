@@ -3,6 +3,7 @@
 # Define the virtual environment name
 VENV_DIR=".venv"
 REQUIREMENTS=".binder/requirements.txt"
+NOTEBOOK="main.ipynb"
 
 # Check if Python is installed
 if ! command -v python3 &> /dev/null; then
@@ -33,6 +34,11 @@ else
     pip install jupyter
 fi
 
-# Start Jupyter Notebook
-echo "Starting Jupyter Notebook..."
-jupyter notebook
+# Check if the notebook exists
+if [ -f "$NOTEBOOK" ]; then
+    echo "Starting Jupyter Notebook with $NOTEBOOK..."
+    jupyter notebook "$NOTEBOOK"
+else
+    echo "Warning: $NOTEBOOK not found. Starting Jupyter without a specific notebook."
+    jupyter notebook
+fi

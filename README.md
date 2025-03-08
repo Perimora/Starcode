@@ -33,6 +33,38 @@ Klicke auf den folgenden Button, um das Notebook direkt in Binder zu starten:
   </a>
 </p>
 
+### **🖥️ Lokale Installation (Windows)**
+
+Falls du das Notebook **lokal auf deinem Computer** ausführen möchtest, folge dieser Anleitung:
+
+#### **1️⃣ Repository klonen**
+Öffne die **PowerShell** und gib folgenden Befehl ein:
+```powershell
+git clone https://github.com/perimora/starcode.git
+cd starcode
+```
+Falls `git` nicht installiert ist, kannst du es von [git-scm.com](https://git-scm.com/) herunterladen.  
+Zusätzlich wird **Python** benötigt. Falls Python nicht installiert ist, kannst du es von [python.org](https://www.python.org/downloads/) herunterladen und installieren.  
+Achte darauf, während der Installation die Option **"Add Python to PATH"** zu aktivieren.
+
+#### **2️⃣ Python und Jupyter vorbereiten**
+
+Starte das **Setup-Skript**, um die benötigte Umgebung zu erstellen:
+
+```powershell
+.\start_jupyter.bat
+```
+
+📌 **Das Skript erledigt automatisch**:
+
+- Erstellen einer **virtuellen Umgebung** (`.venv`)
+- Installieren aller benötigten Abhängigkeiten (inkl. Jupyter)
+- Starten von Jupyter Notebook mit `main.ipynb`
+
+#### **3️⃣ Notebook im Browser öffnen**
+
+Falls sich das Notebook nicht automatisch öffnet, kannst du die URL aus der Konsole kopieren (z. B. `http://localhost:8888/?token=XYZ`) und im Browser öffnen.
+
 ---
 
 ## Lösungen

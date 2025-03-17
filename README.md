@@ -44,8 +44,7 @@ git clone https://github.com/perimora/starcode.git
 cd starcode
 ```
 Falls `git` nicht installiert ist, kannst du es von [git-scm.com](https://git-scm.com/) herunterladen.  
-Zusätzlich wird **Python** benötigt. Falls Python nicht installiert ist, kannst du es von [python.org](https://www.python.org/downloads/) herunterladen und installieren.  
-Achte darauf, während der Installation die Option **"Add Python to PATH"** zu aktivieren.
+Zusätzlich wird **Python** benötigt. Falls Python nicht installiert ist, kannst du es von [python.org](https://www.python.org/downloads/) herunterladen und installieren. Achte darauf, während der Installation die Option **"Add Python to PATH"** zu aktivieren.
 
 #### **2️⃣ Python und Jupyter vorbereiten**
 

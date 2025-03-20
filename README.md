@@ -82,3 +82,12 @@ Klicke auf den folgenden Button, um eine Binder-Instanz mit den Lösungen zu sta
 ⚠️ **Bitte verantwortungsvoll nutzen!**  
 Die Lösungen sind nicht als Copy-Paste-Vorlage gedacht. Nutzt sie zur Überprüfung eures Verständnisses oder wenn ihr trotz eigener Ansätze nicht weiterkommt.
 
+
+## 📝 Feedback geben
+
+Dein Feedback hilft uns, den Kurs zu verbessern! Bitte nimm dir kurz Zeit, um uns deine Meinung mitzuteilen:
+
+📢 **Hier geht’s zur Bewertung:**  
+➡️ **[Kursbewertung ausfüllen](https://jh-tub.limesurvey.net/289278)**
+
+Vielen Dank für deine Teilnahme!
